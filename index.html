@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <style>
+            #outer{
+                width: 400px;
+                height: 400px;
+                background-color:grey;
+                position:absolute;
+            }
+            #inner{
+                width: 250px;
+                height: 250px;
+                background-color:white;
+                left: 50%;
+                top: 50%;
+                position: relative;
+                transform: translate(-50%, -50%);
+            }
+            #innermost{
+                width: 100px;
+                height: 100px;
+                background-color:orange;
+                left: 50%;
+                top: 50%;
+                position: relative;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="outer">
+            <div id="inner">
+                <div id="innermost">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<script>
+    let outer = document.querySelector("#outer");
+    let inner = document.querySelector("#inner");
+    let innermost = document.querySelector("#innermost");
+
+    outer.addEventListener("click", handleOuter);
+    inner.addEventListener("click", handleInner);
+    innermost.addEventListener("click", handleInnermost);
+    innermost.addEventListener("click", handleInnermostAgain);
+
+    function handleOuter() {
+        alert("OUTER");
+    }
+
+    function handleInnermost(e) {
+        e.stopImmediatePropagation();  // stop other events of same element from happening. Also prevents event bubbling.
+        e.stopPropagation();  // stop events of all outer elements other than the current element. Also prevents event bubbling.
+        // return false;  it prevents current element's events from happening but not outer elements events. DEPENDS
+        alert("INNERMOST");
+    }
+
+    function handleInnermostAgain(e) {
+        alert("INNERMOST AGAIN");
+    }
+
+    function handleInner() {
+        alert("INNER");
+    }
+</script>
